@@ -7,7 +7,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/QuentinPerez/go-radosgw/pkg/api"
+	"liyongcool.nat300.top/bozhou/go-radosgw/pkg/api"
 )
 
 func printRawMode(out io.Writer, data interface{}) error {
@@ -20,13 +20,15 @@ func printRawMode(out io.Writer, data interface{}) error {
 }
 
 func main() {
-	api, err := radosAPI.New(os.Getenv("RADOSGW_API"), os.Getenv("RADOSGW_ACCESS"), os.Getenv("RADOSGW_SECRET"))
+	//api, err := radosAPI.New(os.Getenv("RADOSGW_API"), os.Getenv("RADOSGW_ACCESS"), os.Getenv("RADOSGW_SECRET"))
+	api, err := radosAPI.New("http://120.48.27.190:80", "C3ZBITE3VS5AD4Y3YEZB", "3cZZ8D7mP0hNCiqUIYnxKmhEPmbzcCFBkr7Bz4ey")
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	// create a new user named JohnDoe
 	user, err := api.CreateUser(radosAPI.UserConfig{
+		Tenant:      "ccb",
 		UID:         "JohnDoe",
 		DisplayName: "John Doe",
 	})
@@ -36,10 +38,10 @@ func main() {
 	printRawMode(os.Stdout, user)
 
 	// remove JohnDoe
-	err = api.RemoveUser(radosAPI.UserConfig{
-		UID: "JohnDoe",
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
+	//err = api.RemoveUser(radosAPI.UserConfig{
+	//	UID: "JohnDoe",
+	//})
+	//if err != nil {
+	//	log.Fatal(err)
+	//}
 }
