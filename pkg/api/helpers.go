@@ -8,7 +8,7 @@ import (
 
 	"fmt"
 
-	"github.com/QuentinPerez/go-encodeUrl"
+	"liyongcool.nat300.top/bozhou/go-encodeurl"
 )
 
 // UsageConfig usage request
