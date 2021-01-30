@@ -145,6 +145,7 @@ func (api *API) GetUsers() ([]*User, error) {
 
 // UserConfig user request
 type UserConfig struct {
+	Tenant      string `url:"tenant,ifStringIsNotEmpty"`       // The user Tenant to be created
 	UID         string `url:"uid,ifStringIsNotEmpty"`          // The user ID to be created
 	DisplayName string `url:"display-name,ifStringIsNotEmpty"` // The display name of the user to be created
 	Email       string `url:"email,ifStringIsNotEmpty"`        // The email address associated with the user
