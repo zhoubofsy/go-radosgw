@@ -177,12 +177,12 @@ type UserConfig struct {
 // @MaxBuckets
 // @Suspended
 //
-func (api *API) CreateUser(conf UserConfig) (*User, error) {
+func (api *API) CreateUser(conf UserConfig) (*User, error, int) {
 	if conf.UID == "" {
-		return nil, errors.New("UID field is required")
+		return nil, errors.New("UID field is required"), 0
 	}
 	if conf.DisplayName == "" {
-		return nil, errors.New("DisplayName field is required")
+		return nil, errors.New("DisplayName field is required"), 0
 	}
 
 	var (
@@ -193,17 +193,17 @@ func (api *API) CreateUser(conf UserConfig) (*User, error) {
 
 	values, errs = encurl.Translate(conf)
 	if len(errs) > 0 {
-		return nil, errs[0]
+		return nil, errs[0], 0
 	}
 	values.Add("format", "json")
-	body, _, err := api.call("PUT", "/user", values, true)
+	body, statusCode, err := api.call("PUT", "/user", values, true)
 	if err != nil {
-		return nil, err
+		return nil, err, statusCode
 	}
 	if err = json.Unmarshal(body, &ret); err != nil {
-		return nil, err
+		return nil, err, statusCode
 	}
-	return ret, nil
+	return ret, nil, statusCode
 }
 
 // UpdateUser modifies a user
