@@ -91,7 +91,7 @@ type Stats struct {
 			SizeKbActual int `json:"size_kb_actual"`
 		} `json:"rgw.main"`
 	} `json:"usage"`
-	Ver string `json:"ver"`
+	Ver       string `json:"ver"`
 	ZoneGroup string `json:"zonegroup"`
 }
 
@@ -137,6 +137,7 @@ type Policy struct {
 }
 
 // Quotas represents the reponse of quotas requests
+/*
 type Quotas struct {
 	BucketQuota struct {
 		Enabled    bool `json:"enabled"`
@@ -148,6 +149,12 @@ type Quotas struct {
 		MaxObjects int  `json:"max_objects"`
 		MaxSizeKb  int  `json:"max_size_kb"`
 	} `json:"user_quota"`
+}
+*/
+type Quotas struct {
+	Enabled    bool `json:"enabled"`
+	MaxObjects int  `json:"max_objects"`
+	MaxSizeKb  int  `json:"max_size_kb"`
 }
 
 // Capability represents the reponse of capability requests
