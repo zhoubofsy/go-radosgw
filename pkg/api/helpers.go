@@ -77,6 +77,13 @@ func (api *API) DeleteUsage(conf UsageConfig) error {
 	return err
 }
 
+// UserConfig usage request
+type UserInfoConfig struct {
+	UID   string `url:"uid,ifStringIsNotEmpty"`   // The user for which the information is requested. If not specified will apply to all users
+	Stats string `url:"stats,ifStringIsNotEmpty"` // Specifies stats info
+	Sync  string `url:"sync,ifStringIsNotEmpty"`  // Specifies whether sync data
+}
+
 // GetUser gets user information. If no user is specified returns the list of all users along with suspension information
 //
 // ** If no user is specified returns the list ... ** Don't works for me
@@ -93,6 +100,27 @@ func (api *API) GetUser(uid ...string) (*User, error) {
 	if len(uid) != 0 {
 		values.Add("uid", uid[0])
 	}
+	body, _, err := api.call("GET", "/user", values, true)
+	if err != nil {
+		return nil, err
+	}
+	if err = json.Unmarshal(body, &ret); err != nil {
+		return nil, err
+	}
+	return ret, nil
+}
+
+func (api *API) GetUserInfo(conf UserInfoConfig) (*UserInfo, error) {
+	var (
+		values = url.Values{}
+		errs   []error
+	)
+	ret := &UserInfo{}
+	values, errs = encurl.Translate(conf)
+	if len(errs) > 0 {
+		return nil, errs[0]
+	}
+	values.Add("format", "json")
 	body, _, err := api.call("GET", "/user", values, true)
 	if err != nil {
 		return nil, err

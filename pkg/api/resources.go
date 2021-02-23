@@ -56,6 +56,37 @@ type KeysDefinition []struct {
 	User      string `json:"user"`
 }
 
+// UserStats
+type UserStats struct {
+	Size           int `json:"size"`
+	SizeActual     int `json:"size_actual"`
+	SizeUtilized   int `json:"size_utilized"`
+	SizeKB         int `json:"size_kb"`
+	SizeKBActual   int `json:"size_kb_actual"`
+	SizeKBUtilized int `json:"size_kb_utilized"`
+	NumObjects     int `json:"num_objects"`
+}
+
+// UserInfo represents the response of userinfo requests
+type UserInfo struct {
+	Tenant              string         `json:"tenant"`
+	UID                 string         `json:"user_id"`
+	Display             string         `json:"display_name"`
+	Email               string         `json:"email"`
+	Suspended           int            `json:"suspended"`
+	MaxBuckets          int            `json:"max_buckets"`
+	Subusers            SubUsers       `json:"subusers"`
+	Keys                KeysDefinition `json:"keys"`
+	SwiftKeys           KeysDefinition `json:"swift_keys"`
+	Caps                []Capability   `json:"caps"`
+	OpMask              string         `json:"op_mask"`
+	DefaultPlacement    string         `json:"default_placement"`
+	DefaultStorageClass string         `json:"default_storage_class"`
+	BucketQuota         Quotas         `json:"bucket_quota"`
+	UserQuota           Quotas         `json:"user_quota"`
+	Stats               UserStats      `json:"stats"`
+}
+
 // User represents the response of user requests
 type User struct {
 	Caps        []Capability   `json:"caps"`

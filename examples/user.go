@@ -27,16 +27,30 @@ func main() {
 	}
 
 	// create a new user named JohnDoe
-	user, err := api.CreateUser(radosAPI.UserConfig{
+	user, err, _ := api.CreateUser(radosAPI.UserConfig{
 		Tenant:      "ccb",
 		UID:         "JohnDoe",
 		DisplayName: "John Doe",
 	})
-	if err != nil {
-		log.Fatal(err)
-	}
+	/*
+		if err != nil {
+			log.Fatal(err)
+		}
+	*/
 	printRawMode(os.Stdout, user)
 
+	// get user
+	user, err = api.GetUser("U456123")
+
+	// get user quota
+	userQuotas, err := api.GetQuotas(radosAPI.QuotaConfig{UID: "U456123", QuotaType: "user"})
+	bucketQuotas, err := api.GetQuotas(radosAPI.QuotaConfig{UID: "U456123", QuotaType: "bucket"})
+
+	printRawMode(os.Stdout, userQuotas)
+	printRawMode(os.Stdout, bucketQuotas)
+
+	userInfo, err := api.GetUserInfo(radosAPI.UserInfoConfig{UID: "U456123", Stats: "true", Sync: "true"})
+	printRawMode(os.Stdout, userInfo)
 	// remove JohnDoe
 	//err = api.RemoveUser(radosAPI.UserConfig{
 	//	UID: "JohnDoe",
