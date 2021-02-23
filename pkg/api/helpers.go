@@ -8,7 +8,7 @@ import (
 
 	"fmt"
 
-	"liyongcool.nat300.top/bozhou/go-encodeurl"
+	"github.com/zhoubofsy/go-encodeurl"
 )
 
 // UsageConfig usage request
