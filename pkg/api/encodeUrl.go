@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"liyongcool.nat300.top/bozhou/go-encodeurl"
+	"github.com/zhoubofsy/go-encodeurl"
 )
 
 func init() {
